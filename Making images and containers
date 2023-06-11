@@ -1,0 +1,35 @@
+- name: Building Image and Running Containers
+
+  hosts: webservers
+
+  tasks:
+
+    - name: Building Docker Image
+
+      docker_image:
+
+        path: /path/to/img
+
+        name: img_name
+
+        tag: latest
+
+    - name: Running Containers
+
+      docker_container:
+
+        name: "{{ item.name }}"
+
+        image: img_name:latest
+
+        state: started
+
+        restart_policy: unless-stopped
+
+        ports: "{{ item.ports }}"
+
+      loop:
+
+        - { name: con1, ports: ["8000:80"] }
+
+        - { name: con2, ports: ["8001:80"] }
