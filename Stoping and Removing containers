@@ -1,0 +1,19 @@
+- name: Stop and remove Docker containers
+
+  hosts: webservers
+
+  tasks:
+
+    - name: Stop and remove containers
+
+      docker_container:
+
+        name: "{{ item }}"
+
+        state: absent
+
+      loop:
+
+        - con1
+
+        - con2
